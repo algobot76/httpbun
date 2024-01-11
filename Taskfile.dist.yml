@@ -46,3 +46,11 @@ tasks:
     cmds:
       - sed 's://\(delete(req.Header, "Host")\)$:\1:' "$(go env GOROOT)/src/net/http/server.go" > x
       - mv x "$(go env GOROOT)/src/net/http/server.go"
+
+  build:
+    cmds:
+      - GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -ldflags="-s -w" -o ./bin/httpbun-linux-amd64 main.go
+      - GOOS=linux GOARCH=arm64 CGO_ENABLED=0 go build -ldflags="-s -w" -o ./bin/httpbun-linux-arm64 main.go
+      - GOOS=darwin GOARCH=amd64 CGO_ENABLED=0 go build -ldflags="-s -w" -o ./bin/httpbun-darwin-amd64 main.go
+      - GOOS=darwin GOARCH=arm64 CGO_ENABLED=0 go build -ldflags="-s -w" -o ./bin/httpbun-darwin-arm64 main.go
+
